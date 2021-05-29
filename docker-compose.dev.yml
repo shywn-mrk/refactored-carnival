@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    container_name: web
+    restart: always
+    build: .
+    command: npm run start:dev
+    ports:
+      - 5000:3000
+    volumes:
+      - ./:./
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    
+  mongodb:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
